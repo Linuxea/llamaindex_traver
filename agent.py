@@ -22,10 +22,15 @@ def add(a: float, b: float) -> float:
 add_tool = FunctionTool.from_defaults(fn=add)
 
 llm = OpenRouter(
-    model="microsoft/phi-4",
+    model="openai/gpt-4o-2024-11-20",
     api_key=os.getenv("OPEN_ROUTER_API_KEY"),
 )
 
 agent = ReActAgent.from_tools([multiply_tool, add_tool], llm=llm, verbose=True)
 
-response = agent.chat("What is 20+(200*4)? Use a tool to calculate every step.")
+while True:
+    question = input("you:")
+    if question == "quit":
+        break
+    response = agent.chat(question)
+    print(response)

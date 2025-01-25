@@ -35,5 +35,9 @@ index = VectorStoreIndex.from_documents(documents, show_progress=True)
 
 query_engine = index.as_query_engine()
 
-print(query_engine.query("你了解我吗？"))
-print(query_engine.query("我几岁？"))
+while True:
+    question = input("you:")
+    if question == "quit":
+        break
+    response = query_engine.query(question)
+    print(response)
